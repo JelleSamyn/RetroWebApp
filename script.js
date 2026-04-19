@@ -5,6 +5,10 @@ let selectedIndex = 0;
 let lastMoveTime = 0;
 let lastActionTime = 0;
 
+const gameRoutes = {
+  'Space Blaster': 'games/space-blaster/index.html',
+};
+
 function isVerticalLayout() {
   if (cards.length < 2) {
     return false;
@@ -26,7 +30,15 @@ function updateSelection(index) {
 
 function launchSelectedGame() {
   const selectedName = cards[selectedIndex].dataset.game;
-  statusEl.textContent = `Starten: ${selectedName} (demo)`;
+  const targetPath = gameRoutes[selectedName];
+
+  if (!targetPath) {
+    statusEl.textContent = `Nog niet beschikbaar: ${selectedName}`;
+    return;
+  }
+
+  statusEl.textContent = `Starten: ${selectedName}`;
+  window.location.href = targetPath;
 }
 
 function moveSelection(delta) {

@@ -1,0 +1,16 @@
+{
+  "name": "Space Blaster",
+  "version": "0.1.0",
+  "player": {
+    "speed": 360,
+    "lives": 3
+  },
+  "projectile": {
+    "cooldownSeconds": 0.18,
+    "speed": 420
+  },
+  "enemyWave": {
+    "columns": 8,
+    "speed": 60
+  }
+}
