@@ -1,0 +1,94 @@
+:root {
+  --bg: #141414;
+  --panel: #202020;
+  --panel-active: #2e4b38;
+  --text: #f5f1e8;
+  --muted: #b8b2a4;
+  --accent: #8ddf78;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #2b2b2b, var(--bg) 55%);
+  color: var(--text);
+}
+
+.hub {
+  width: min(920px, 92vw);
+  padding: 28px;
+  border: 2px solid #3b3b3b;
+  border-radius: 14px;
+  background: rgba(22, 22, 22, 0.92);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+h1 {
+  margin: 0 0 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hint {
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+
+.games {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.game-card {
+  padding: 18px;
+  border: 2px solid #454545;
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.game-card:hover {
+  transform: translateY(-2px);
+  border-color: #6d6d6d;
+}
+
+.game-card.is-selected {
+  border-color: var(--accent);
+  background: var(--panel-active);
+  box-shadow: 0 0 0 2px rgba(141, 223, 120, 0.25);
+}
+
+.game-title {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.game-sub {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.status {
+  margin: 16px 0 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .games {
+    grid-template-columns: 1fr;
+  }
+}

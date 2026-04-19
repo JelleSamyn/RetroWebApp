@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Hub</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="hub">
+      <h1>Retro Hub</h1>
+      <p class="hint">Gebruik pijltjes of WASD, Enter om te starten. Xbox: D-pad/Left Stick + A.</p>
+
+      <section class="games" aria-label="Game selectie">
+        <button class="game-card is-selected" data-game="Space Blaster" type="button">
+          <span class="game-title">Space Blaster</span>
+          <span class="game-sub">Arcade shooter</span>
+        </button>
+
+        <button class="game-card" data-game="Pixel Racer" type="button">
+          <span class="game-title">Pixel Racer</span>
+          <span class="game-sub">Retro racing</span>
+        </button>
+
+        <button class="game-card" data-game="Dungeon Quest" type="button">
+          <span class="game-title">Dungeon Quest</span>
+          <span class="game-sub">Top-down avontuur</span>
+        </button>
+      </section>
+
+      <p id="status" class="status" aria-live="polite">Geselecteerd: Space Blaster</p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
