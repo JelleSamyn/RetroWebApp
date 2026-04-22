@@ -1,10 +1,10 @@
-export function createPlayer(canvasWidth, canvasHeight) {
+export function createPlayer(canvasWidth, canvasHeight, config = {}) {
   return {
     x: canvasWidth / 2 - 24,
     y: canvasHeight - 70,
     width: 48,
     height: 28,
-    speed: 360,
+    speed: config.speed || 360,
   };
 }
 

@@ -1,7 +1,7 @@
-export function createProjectileSystem() {
+export function createProjectileSystem(config = {}) {
   return {
     list: [],
-    speed: 420,
+    speed: config.speed || 420,
   };
 }
 

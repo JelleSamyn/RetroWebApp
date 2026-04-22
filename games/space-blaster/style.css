@@ -50,3 +50,81 @@ body {
   border-radius: 10px;
   background: linear-gradient(180deg, var(--bg2), #01090e);
 }
+
+.pause-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 21, 31, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.pause-menu.hidden {
+  display: none;
+}
+
+.pause-menu-content {
+  background: var(--panel);
+  border: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(255, 209, 102, 0.3);
+}
+
+.pause-menu-content h2 {
+  margin: 0 0 30px;
+  font-size: 2rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.menu-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.menu-option {
+  padding: 12px 20px;
+  background: transparent;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: inherit;
+}
+
+.menu-option:hover,
+.menu-option.selected {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: bold;
+}
+
+.menu-option:active {
+  transform: scale(0.98);
+}
+
+.menu-hint {
+  margin: 20px 0 0;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.game-shell {
+  position: relative;
+}

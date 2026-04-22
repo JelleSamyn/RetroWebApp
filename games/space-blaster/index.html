@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Space Blaster</title>
+  <link rel="shortcut icon" href="space.png" type="image/x-icon">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
@@ -15,8 +16,26 @@
 
     <canvas id="game" width="960" height="540" aria-label="Space Blaster"></canvas>
 
+    <div id="pauseMenu" class="pause-menu hidden">
+      <div class="pause-menu-content">
+        <h2>PAUSED</h2>
+        <div class="menu-options">
+          <button class="menu-option selected" data-action="resume">
+            <span class="option-label">Resume</span>
+          </button>
+          <button class="menu-option" data-action="reset">
+            <span class="option-label">Reset Score</span>
+          </button>
+          <button class="menu-option" data-action="mainmenu">
+            <span class="option-label">Main Menu</span>
+          </button>
+        </div>
+        <p class="menu-hint">D-pad / Pijltjes: Navigate | A / Space: Select</p>
+      </div>
+    </div>
+
     <footer class="help">
-      <p>Beweeg: WASD / pijltjes | Schiet: Spatie | Controller: Left stick + A</p>
+      <p>Beweeg: WASD / pijltjes | Schiet: Spatie | Menu: Controller Button | Controller: Left stick + A</p>
     </footer>
   </main>
 

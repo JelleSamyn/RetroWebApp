@@ -1,6 +1,6 @@
-export function createEnemyWave(canvasWidth) {
+export function createEnemyWave(canvasWidth, config = {}) {
   const enemies = [];
-  const cols = 8;
+  const cols = config.columns || 8;
   const spacing = 18;
   const enemyWidth = 44;
   const totalWidth = cols * enemyWidth + (cols - 1) * spacing;
@@ -18,7 +18,7 @@ export function createEnemyWave(canvasWidth) {
 
   return {
     dir: 1,
-    speed: 60,
+    speed: config.speed || 150,
     list: enemies,
   };
 }

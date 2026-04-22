@@ -11,6 +11,6 @@
   },
   "enemyWave": {
     "columns": 8,
-    "speed": 60
+    "speed": 150
   }
 }
