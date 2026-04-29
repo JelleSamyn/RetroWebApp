@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;700&display=swap');
+
 :root {
-  --bg: #04151f;
-  --bg2: #0b2e3d;
-  --panel: rgba(8, 35, 46, 0.85);
-  --ink: #d4f4ff;
-  --accent: #ffd166;
+  --bg: #04090f;
+  --bg-grid: #08121f;
+  --panel: rgba(8, 15, 25, 0.85);
+  --ink: #e0fbfc;
+  --accent: #00f0ff;
+  --danger: #ff0055;
+  --warning: #ffb703;
 }
 
 * {
@@ -15,116 +19,169 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 20% 20%, #0d3a4d 0%, var(--bg) 50%, #020b10 100%);
+  background: var(--bg);
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
   color: var(--ink);
-  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-family: 'Rajdhani', "Trebuchet MS", sans-serif;
+  overflow: hidden;
 }
 
 .game-shell {
-  width: min(96vw, 980px);
-  padding: 16px;
-  border: 2px solid rgba(212, 244, 255, 0.3);
-  border-radius: 14px;
+  width: min(96vw, 1000px);
+  padding: 20px;
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  border-radius: 16px;
   background: var(--panel);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.1), inset 0 0 20px rgba(0, 240, 255, 0.05);
+  position: relative;
 }
 
-.hud,
-.help {
+.game-shell::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, var(--accent), transparent, var(--danger)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hud {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin: 0 0 10px;
-  font-size: 0.95rem;
+  margin: 0 0 15px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
 }
 
 .help {
-  margin: 10px 0 0;
-  opacity: 0.9;
+  margin: 15px 0 0;
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8) inset;
 }
 
 #game {
+  display: block;
   width: 100%;
   height: auto;
-  border: 2px solid rgba(255, 209, 102, 0.35);
-  border-radius: 10px;
-  background: linear-gradient(180deg, var(--bg2), #01090e);
+  background: #020408;
 }
 
-.pause-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(4, 21, 31, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(2px);
-}
-
-.pause-menu.hidden {
-  display: none;
-}
-
-.pause-menu-content {
-  background: var(--panel);
-  border: 3px solid var(--accent);
+.glass-panel {
+  background: rgba(4, 9, 15, 0.9);
+  border: 2px solid var(--accent);
   border-radius: 12px;
   padding: 40px;
   text-align: center;
-  max-width: 400px;
-  box-shadow: 0 0 30px rgba(255, 209, 102, 0.3);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+  backdrop-filter: blur(4px);
 }
 
-.pause-menu-content h2 {
-  margin: 0 0 30px;
-  font-size: 2rem;
+.pause-menu, .overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.neon-text {
+  font-family: 'Press Start 2P', monospace;
   color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.neon-text.danger {
+  color: var(--danger);
+  text-shadow: 0 0 10px var(--danger), 0 0 20px var(--danger);
 }
 
 .menu-options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
   margin-bottom: 30px;
 }
 
-.menu-option {
-  padding: 12px 20px;
+.menu-option, .action-btn {
+  padding: 15px 25px;
   background: transparent;
-  border: 2px solid var(--ink);
+  border: 2px solid var(--accent);
   color: var(--ink);
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  text-align: left;
-  font-family: inherit;
-}
-
-.menu-option:hover,
-.menu-option.selected {
-  background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
+  font-size: 1.2rem;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.menu-option:active {
-  transform: scale(0.98);
+.menu-option:hover, .menu-option.selected, .action-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  box-shadow: 0 0 15px var(--accent) inset;
+  text-shadow: 0 0 5px var(--ink);
+}
+
+.menu-option.selected::before {
+  content: '►';
+  position: absolute;
+  left: 10px;
+  color: var(--accent);
 }
 
 .menu-hint {
-  margin: 20px 0 0;
-  opacity: 0.8;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
 }
 
-.game-shell {
-  position: relative;
+.wave-overlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+}
+
+#finalScore {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-family: 'Press Start 2P', monospace;
 }

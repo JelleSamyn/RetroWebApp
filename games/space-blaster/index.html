@@ -10,32 +10,47 @@
 <body>
   <main class="game-shell">
     <header class="hud">
-      <p id="score">Score: 0</p>
-      <p id="lives">Lives: 3</p>
+      <p id="score">SCORE: 0</p>
+      <p id="wave">WAVE: 1</p>
+      <p id="lives">LIVES: 3</p>
     </header>
 
-    <canvas id="game" width="960" height="540" aria-label="Space Blaster"></canvas>
+    <div class="canvas-container">
+      <canvas id="game" width="960" height="540" aria-label="Space Blaster"></canvas>
 
-    <div id="pauseMenu" class="pause-menu hidden">
-      <div class="pause-menu-content">
-        <h2>PAUSED</h2>
-        <div class="menu-options">
-          <button class="menu-option selected" data-action="resume">
-            <span class="option-label">Resume</span>
-          </button>
-          <button class="menu-option" data-action="reset">
-            <span class="option-label">Reset Score</span>
-          </button>
-          <button class="menu-option" data-action="mainmenu">
-            <span class="option-label">Main Menu</span>
-          </button>
+      <div id="pauseMenu" class="pause-menu hidden">
+        <div class="pause-menu-content glass-panel">
+          <h2>PAUSED</h2>
+          <div class="menu-options">
+            <button class="menu-option selected" data-action="resume">
+              <span class="option-label">Resume</span>
+            </button>
+            <button class="menu-option" data-action="reset">
+              <span class="option-label">Reset Score</span>
+            </button>
+            <button class="menu-option" data-action="mainmenu">
+              <span class="option-label">Main Menu</span>
+            </button>
+          </div>
+          <p class="menu-hint">D-pad / Pijltjes: Navigate | A / Space: Select</p>
         </div>
-        <p class="menu-hint">D-pad / Pijltjes: Navigate | A / Space: Select</p>
+      </div>
+
+      <div id="gameOverScreen" class="overlay hidden">
+        <div class="glass-panel">
+          <h2 class="neon-text danger">GAME OVER</h2>
+          <p id="finalScore">Final Score: 0</p>
+          <button id="restartBtn" class="action-btn">PLAY AGAIN</button>
+        </div>
+      </div>
+      
+      <div id="waveMessage" class="wave-overlay hidden">
+        <h2 class="neon-text" id="waveMessageText">WAVE 1</h2>
       </div>
     </div>
 
     <footer class="help">
-      <p>Beweeg: WASD / pijltjes | Schiet: Spatie | Menu: Controller Button | Controller: Left stick + A</p>
+      <p>Move: WASD / Arrows | Shoot: Space | Menu: Controller / ESC</p>
     </footer>
   </main>
 
