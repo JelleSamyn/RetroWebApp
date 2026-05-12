@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pixel Racer</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    
+    <div id="ui-layer">
+      <div id="score-display">Score: 0</div>
+      
+      <div id="start-screen" class="screen">
+        <h1>PIXEL RACER</h1>
+        <p>Press Enter or (A) to Start</p>
+        <p class="controls-hint">Controls: WASD / Arrows / D-pad</p>
+      </div>
+      
+      <div id="game-over-screen" class="screen hidden">
+        <h2>GAME OVER</h2>
+        <p>Final Score: <span id="final-score">0</span></p>
+        <button id="restart-btn">Restart (Enter / A)</button>
+        <button id="home-btn">Exit to Hub (Esc / B)</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="game.js"></script>
+</body>
+</html>

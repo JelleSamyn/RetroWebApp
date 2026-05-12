@@ -7,6 +7,7 @@ let lastActionTime = 0;
 
 const gameRoutes = {
   'Space Blaster': 'games/space-blaster/index.html',
+  'Pixel Racer': 'games/pixel-racer/index.html',
 };
 
 function isVerticalLayout() {
