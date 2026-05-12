@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  touch-action: none; /* Prevent scrolling on mobile */
+}
+
+#game-container {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  max-width: 100vw;
+  max-height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  border: 4px solid #444;
+  background-color: #222;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass through to canvas if needed */
+  display: flex;
+  flex-direction: column;
+}
+
+#score-display {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  color: #f1c40f;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 10;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  pointer-events: auto; /* Re-enable for buttons */
+  text-align: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.screen.hidden {
+  display: none;
+}
+
+h1, h2 {
+  font-family: 'Press Start 2P', monospace;
+  color: #e74c3c;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 0 #000;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.controls-hint {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #27ae60;
+  color: white;
+  border: 4px solid #2ecc71;
+  padding: 10px 20px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: transform 0.1s, background-color 0.2s;
+  width: 80%;
+  max-width: 300px;
+}
+
+button:hover, button.selected {
+  background-color: #2ecc71;
+  transform: scale(1.05);
+  border-color: #f1c40f;
+  box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#home-btn {
+  background-color: #c0392b;
+  border-color: #e74c3c;
+}
+
+#home-btn:hover {
+  background-color: #e74c3c;
+}
+
+@media (max-width: 650px) {
+  #game-container {
+    width: 100%;
+    height: 100vw;
+    border: none;
+  }
+  
+  h1 { font-size: 24px; }
+  h2 { font-size: 30px; }
+}

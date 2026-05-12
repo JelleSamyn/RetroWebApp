@@ -86,7 +86,7 @@ async function initGame() {
     state.transitionTimer = 2.0; // 2 seconds transition
     waveMessageText.textContent = `WAVE ${state.waveNumber}`;
     waveMessage.classList.remove("hidden");
-    
+
     enemies = createEnemyWave(canvas.width, state.waveNumber, config.enemyWave);
     projectiles.list = []; // Clear projectiles
     updateHUD();
@@ -97,7 +97,7 @@ async function initGame() {
 
     state.lives--;
     updateHUD();
-    emitParticles(particles, player.x + player.width/2, player.y + player.height/2, "#00f0ff", 30, 2);
+    emitParticles(particles, player.x + player.width / 2, player.y + player.height / 2, "#00f0ff", 30, 2);
 
     if (state.lives <= 0) {
       state.currentState = GAME_STATE.GAME_OVER;
@@ -223,7 +223,7 @@ async function initGame() {
 
     if (state.currentState === GAME_STATE.PLAYING) {
       updatePlayer(player, keys, pad, dt, canvas.width);
-      
+
       const waveCleared = updateEnemies(enemies, dt, canvas.width, projectiles, fireProjectile);
       if (waveCleared) {
         startNextWave();
@@ -242,7 +242,7 @@ async function initGame() {
       const hitResults = resolveHits(projectiles, enemies, player, particles, emitParticles);
       state.score += hitResults.scoreIncrease;
       if (hitResults.scoreIncrease > 0) updateHUD();
-      
+
       if (hitResults.playerHit) {
         handlePlayerHit();
       }
@@ -251,7 +251,7 @@ async function initGame() {
       state.transitionTimer -= dt;
       updatePlayer(player, keys, pad, dt, canvas.width);
       updateParticles(particles, dt);
-      
+
       if (state.transitionTimer <= 0) {
         state.currentState = GAME_STATE.PLAYING;
         waveMessage.classList.add("hidden");
@@ -263,11 +263,11 @@ async function initGame() {
     // Drawing
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawUi(ctx, canvas.width, canvas.height, dt, stars);
-    
+
     if (state.currentState !== GAME_STATE.GAME_OVER || state.lives > 0) {
       drawPlayer(ctx, player, globalTime);
     }
-    
+
     drawEnemies(ctx, enemies, globalTime);
     drawProjectiles(ctx, projectiles);
     drawParticles(ctx, particles);
@@ -287,7 +287,7 @@ async function initGame() {
       const action = opt.dataset.action;
       if (action === "resume") togglePauseMenu();
       if (action === "reset") resetGame();
-      if (action === "mainmenu") window.location.href = "/RetroWebApp/";
+      if (action === "mainmenu") window.location.href = "../../index.html";
     });
   });
 

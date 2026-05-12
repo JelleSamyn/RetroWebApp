@@ -8,6 +8,7 @@ let lastActionTime = 0;
 const gameRoutes = {
   'Space Blaster': 'games/space-blaster/index.html',
   'Pixel Racer': 'games/pixel-racer/index.html',
+  'Dungeon Quest': 'games/dungeon-quest/index.html',
 };
 
 function isVerticalLayout() {
@@ -126,3 +127,36 @@ window.addEventListener('gamepaddisconnected', () => {
 
 updateSelection(0);
 pollGamepad();
+
+// PWA: Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((registration) => {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, (err) => {
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
+// PWA: Notifications
+const notifyBtn = document.getElementById('btn-notify');
+
+if ('Notification' in window) {
+  if (Notification.permission === 'default' || Notification.permission === 'denied') {
+    notifyBtn.removeAttribute('hidden');
+  }
+
+  notifyBtn.addEventListener('click', () => {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        notifyBtn.setAttribute('hidden', 'true');
+        new Notification('Retro Hub', {
+          body: 'Notificaties zijn succesvol ingeschakeld!',
+          icon: '/console.png'
+        });
+      }
+    });
+  });
+}
+

@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Retro Hub</title>
     <link rel="icon" href="console.png" type="image/png">
+    <link rel="apple-touch-icon" href="console.png">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#8ddf78" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main class="hub">
       <h1>Retro Hub</h1>
       <p class="hint">Gebruik pijltjes of WASD, Enter om te starten. Xbox: D-pad/Left Stick + A.</p>
+      <button id="btn-notify" class="btn-notify" type="button" hidden>Notificaties Aanzetten</button>
 
       <section class="games" aria-label="Game selectie">
         <button class="game-card is-selected" data-game="Space Blaster" type="button">

@@ -1,0 +1,17 @@
+{
+  "name": "Retro Arcade Hub",
+  "short_name": "Retro Hub",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#141414",
+  "theme_color": "#8ddf78",
+  "description": "Een verzameling van retro arcade games met controller ondersteuning.",
+  "icons": [
+    {
+      "src": "console.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

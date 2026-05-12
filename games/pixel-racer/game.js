@@ -6,12 +6,18 @@ const gameOverScreen = document.getElementById('game-over-screen');
 const finalScoreSpan = document.getElementById('final-score');
 const restartBtn = document.getElementById('restart-btn');
 const homeBtn = document.getElementById('home-btn');
+const pauseScreen = document.getElementById('pause-screen');
+const resumeBtn = document.getElementById('resume-btn');
+const pauseRestartBtn = document.getElementById('pause-restart-btn');
+const pauseHomeBtn = document.getElementById('pause-home-btn');
 
 // Game state
-let gameState = 'START'; // START, PLAYING, GAMEOVER
+let gameState = 'START'; // START, PLAYING, GAMEOVER, PAUSED
 let score = 0;
 let gameSpeed = 5;
 let lastTime = 0;
+let selectedMenuIndex = 0;
+let lastUINavigationTime = 0;
 
 // Player
 const player = {
@@ -51,7 +57,13 @@ const keys = {
 window.addEventListener('keydown', (e) => {
   if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
   if (e.key === 'Enter') handleStartAction();
-  if (e.key === 'Escape') goToHub();
+  if (e.key === 'Escape') {
+    if (gameState === 'PLAYING' || gameState === 'PAUSED') {
+      togglePause();
+    } else {
+      goToHub();
+    }
+  }
 });
 
 window.addEventListener('keyup', (e) => {
@@ -60,9 +72,38 @@ window.addEventListener('keyup', (e) => {
 
 restartBtn.addEventListener('click', startGame);
 homeBtn.addEventListener('click', goToHub);
+resumeBtn.addEventListener('click', togglePause);
+pauseRestartBtn.addEventListener('click', startGame);
+pauseHomeBtn.addEventListener('click', goToHub);
 
 function goToHub() {
   window.location.href = '../../index.html';
+}
+
+function getActiveButtons() {
+  if (gameState === 'GAMEOVER') return [restartBtn, homeBtn];
+  if (gameState === 'PAUSED') return [resumeBtn, pauseRestartBtn, pauseHomeBtn];
+  return [];
+}
+
+function updateMenuSelection() {
+  const buttons = getActiveButtons();
+  buttons.forEach((btn, i) => {
+    btn.classList.toggle('selected', i === selectedMenuIndex);
+  });
+}
+
+function togglePause() {
+  if (gameState === 'PLAYING') {
+    gameState = 'PAUSED';
+    selectedMenuIndex = 0;
+    pauseScreen.classList.remove('hidden');
+    updateMenuSelection();
+  } else if (gameState === 'PAUSED') {
+    gameState = 'PLAYING';
+    pauseScreen.classList.add('hidden');
+    lastTime = performance.now();
+  }
 }
 
 function handleStartAction() {
@@ -81,18 +122,59 @@ function pollGamepad() {
 
   const now = performance.now();
 
-  // A button (Start/Restart)
-  if (pad.buttons[0]?.pressed && now - lastActionTime > 200) {
-    handleStartAction();
-    lastActionTime = now;
+  // A button (Start/Restart or Menu Select)
+  if (pad.buttons[0]?.pressed) {
+    if (gameState === 'START') {
+      if (now - lastActionTime > 200) {
+        handleStartAction();
+        lastActionTime = now;
+      }
+    } else if (gameState === 'PAUSED' || gameState === 'GAMEOVER') {
+      if (now - lastUINavigationTime > 200) {
+        const buttons = getActiveButtons();
+        if (buttons[selectedMenuIndex]) {
+          buttons[selectedMenuIndex].click();
+        }
+        lastUINavigationTime = now;
+      }
+    }
   }
 
   // B button (Exit to Hub)
   if (pad.buttons[1]?.pressed && now - lastActionTime > 200) {
-    if (gameState === 'GAMEOVER' || gameState === 'START') {
+    if (gameState === 'GAMEOVER' || gameState === 'START' || gameState === 'PAUSED') {
       goToHub();
     }
     lastActionTime = now;
+  }
+
+  // Menu button (Pause)
+  if (pad.buttons[9]?.pressed && now - lastActionTime > 200) {
+    if (gameState === 'PLAYING' || gameState === 'PAUSED') {
+      togglePause();
+    }
+    lastActionTime = now;
+  }
+
+  // UI Navigation
+  if (gameState === 'PAUSED' || gameState === 'GAMEOVER') {
+    if (now - lastUINavigationTime > 180) {
+      const upPressed = pad.buttons[12]?.pressed || pad.axes[1] < -0.5;
+      const downPressed = pad.buttons[13]?.pressed || pad.axes[1] > 0.5;
+      const buttons = getActiveButtons();
+      
+      if (buttons.length > 0) {
+        if (upPressed) {
+          selectedMenuIndex = (selectedMenuIndex - 1 + buttons.length) % buttons.length;
+          updateMenuSelection();
+          lastUINavigationTime = now;
+        } else if (downPressed) {
+          selectedMenuIndex = (selectedMenuIndex + 1) % buttons.length;
+          updateMenuSelection();
+          lastUINavigationTime = now;
+        }
+      }
+    }
   }
 
   // D-pad / Left Stick
@@ -127,6 +209,7 @@ function startGame() {
 
   startScreen.classList.add('hidden');
   gameOverScreen.classList.add('hidden');
+  pauseScreen.classList.add('hidden');
 
   scoreDisplay.textContent = `Score: ${score}`;
 
@@ -136,7 +219,9 @@ function startGame() {
 function gameOver() {
   gameState = 'GAMEOVER';
   finalScoreSpan.textContent = score;
+  selectedMenuIndex = 0;
   gameOverScreen.classList.remove('hidden');
+  updateMenuSelection();
 }
 
 function spawnEnemy() {
